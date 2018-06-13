@@ -7,6 +7,7 @@ import styled from 'styled-components';
 
 export interface IItem {
   name: string;
+  nameMultiple: string;
   generates: number;
   cost: number;
   amount: number;
@@ -15,48 +16,56 @@ export interface IItem {
 const createItems = (): IItem[] => [
   {
     name: 'Nephew',
+    nameMultiple: 'nephews',
     generates: 0.1,
     cost: 15,
     amount: 0
   },
   {
     name: 'Grandma',
+    nameMultiple: 'grannies',
     generates: 1,
     cost: 50,
     amount: 0
   },
   {
     name: 'Farm',
+    nameMultiple: 'farms',
     generates: 2,
     cost: 500,
     amount: 0
   },
   {
     name: 'Factory',
+    nameMultiple: 'factories',
     generates: 5,
     cost: 1000,
     amount: 0
   },
   {
     name: 'Mine',
+    nameMultiple: 'mines',
     generates: 10,
     cost: 10000,
     amount: 0
   },
   {
     name: 'Plant',
+    nameMultiple: 'plants',
     generates: 50,
     cost: 100000,
     amount: 0
   },
   {
     name: 'Planet',
+    nameMultiple: 'planets',
     generates: 100,
     cost: 1000000,
     amount: 0
   },
   {
     name: 'Aliens',
+    nameMultiple: 'alien species',
     generates: 1000,
     cost: 100000000,
     amount: 0
