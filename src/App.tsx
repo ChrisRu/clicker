@@ -5,9 +5,50 @@ import BuyMenu from './BuyMenu';
 import { calc } from './utils';
 import styled from 'styled-components';
 
+export interface IItem {
+  name: string;
+  generates: number;
+  cost: number;
+  amount: number;
+}
+
+const createItems = (): IItem[] => [
+  {
+    name: 'Mouse',
+    generates: 0.1,
+    cost: 15,
+    amount: 0
+  },
+  {
+    name: 'Grandma',
+    generates: 1,
+    cost: 50,
+    amount: 0
+  },
+  {
+    name: 'Factory',
+    generates: 2,
+    cost: 500,
+    amount: 0
+  },
+  {
+    name: 'Factory Farm',
+    generates: 5,
+    cost: 1000,
+    amount: 0
+  },
+  {
+    name: 'Mine',
+    generates: 10,
+    cost: 10000,
+    amount: 0
+  }
+];
+
 interface IState {
   amount: number;
   generates: number;
+  items: IItem[];
 }
 
 const Wrapper = styled.div`
@@ -26,10 +67,13 @@ class App extends React.Component<{}, IState> {
 
   state = {
     amount: 0,
-    generates: 0
+    generates: 0,
+    items: createItems()
   };
 
   componentDidMount() {
+    this.load();
+
     this.interval = setInterval(() => {
       this.setState(({ amount, generates }) => ({
         amount: calc('+', amount, generates)
@@ -41,19 +85,38 @@ class App extends React.Component<{}, IState> {
     clearInterval(this.interval);
   }
 
-  click = () =>
-    this.setState(({ amount }) => ({
-      amount: calc('+', amount, 1)
-    }));
+  click = () => {
+    this.setState(
+      ({ amount }) => ({
+        amount: calc('+', amount, 1)
+      }),
+      this.save
+    );
+  };
 
-  generate = (worth: number, cost: number) =>
-    this.setState(({ amount, generates }) => ({
-      amount: calc('-', amount, cost),
-      generates: calc('+', generates, worth)
-    }));
+  generate = (worth: number, cost: number) => {
+    this.setState(
+      ({ amount, generates }) => ({
+        amount: calc('-', amount, cost),
+        generates: calc('+', generates, worth)
+      }),
+      this.save
+    );
+  };
+
+  load() {
+    const status = window.localStorage.getItem('blobbers');
+    if (status) {
+      this.setState(JSON.parse(status));
+    }
+  }
+
+  save() {
+    window.localStorage.setItem('blobbers', JSON.stringify(this.state));
+  }
 
   render() {
-    const { amount, generates } = this.state;
+    const { amount, generates, items } = this.state;
 
     return (
       <Wrapper>
@@ -61,7 +124,7 @@ class App extends React.Component<{}, IState> {
           <Status amount={amount} generates={generates} />
           <Clicker onClick={this.click} />
         </SideBar>
-        <BuyMenu amount={amount} onUpdate={this.generate} />
+        <BuyMenu items={items} amount={amount} onUpdate={this.generate} />
       </Wrapper>
     );
   }
