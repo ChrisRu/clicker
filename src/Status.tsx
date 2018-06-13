@@ -7,7 +7,9 @@ interface IProps {
   generates: number;
 }
 
-const StatusWrapper = styled.div``;
+const StatusWrapper = styled.div`
+  width: 40em;
+`;
 
 const StatusAmount = styled.h1`
   margin: 0;

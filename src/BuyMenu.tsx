@@ -21,6 +21,7 @@ const BuyItem = styled.button`
   font-family: 'Work Sans', sans-serif;
   background: #fff;
   color: #000;
+  text-align: left;
 
   &:disabled {
     opacity: 0.5;
@@ -33,6 +34,7 @@ const BuyTitle = styled.h3`
   margin: 0;
   font-size: 1rem;
   margin-right: 1em;
+  width: 4.5em;
 `;
 
 interface IProps {
@@ -68,7 +70,7 @@ class BuyMenu extends React.Component<IProps> {
               disabled={cost > amount}
               onClick={this.buy(item, cost)}>
               <BuyTitle>{item.name}</BuyTitle>
-              <span>${formatAmount(cost)}</span>
+              <span>฿ {formatAmount(cost)}</span>
             </BuyItem>
           );
         })}

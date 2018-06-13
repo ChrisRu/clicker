@@ -1,5 +1,5 @@
 body {
-  background: #181818;
+  background: linear-gradient(#f28a56, #a16a76);
   color: #fff;
   font-family: 'Work Sans', sans-serif;
   display: flex;
@@ -8,6 +8,7 @@ body {
   height: 100vh;
   width: 100%;
   margin: 0;
+  user-select: none;
 }
 
 button::-moz-focus-inner {

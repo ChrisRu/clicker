@@ -14,7 +14,7 @@ export interface IItem {
 
 const createItems = (): IItem[] => [
   {
-    name: 'Mouse',
+    name: 'Nephew',
     generates: 0.1,
     cost: 15,
     amount: 0
@@ -26,13 +26,13 @@ const createItems = (): IItem[] => [
     amount: 0
   },
   {
-    name: 'Factory',
+    name: 'Farm',
     generates: 2,
     cost: 500,
     amount: 0
   },
   {
-    name: 'Factory Farm',
+    name: 'Factory',
     generates: 5,
     cost: 1000,
     amount: 0
@@ -41,6 +41,24 @@ const createItems = (): IItem[] => [
     name: 'Mine',
     generates: 10,
     cost: 10000,
+    amount: 0
+  },
+  {
+    name: 'Plant',
+    generates: 50,
+    cost: 100000,
+    amount: 0
+  },
+  {
+    name: 'Planet',
+    generates: 100,
+    cost: 1000000,
+    amount: 0
+  },
+  {
+    name: 'Aliens',
+    generates: 1000,
+    cost: 100000000,
     amount: 0
   }
 ];
@@ -58,7 +76,8 @@ const Wrapper = styled.div`
 const SideBar = styled.div`
   display: flex;
   flex-flow: column nowrap;
-  max-width: 15rem;
+  justify-content: center;
+  max-width: 18rem;
   margin-right: 1em;
 `;
 
@@ -77,7 +96,7 @@ class App extends React.Component<{}, IState> {
     this.interval = setInterval(() => {
       this.setState(({ amount, generates }) => ({
         amount: calc('+', amount, generates)
-      }));
+      }), this.save);
     }, 1000);
   }
 

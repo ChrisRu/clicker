@@ -14,12 +14,12 @@ export const calc = (op: operation, x: number, y: number) => {
 export const formatAmount = (value: number) => {
   let newValue = value.toString();
 
-  if (value > 10e9) {
-    newValue = calc('/', value, 10e9) + ' B';
-  } else if (value > 10e6) {
-    newValue = calc('/', value, 10e6) + ' M';
-  } else if (value > 10e3) {
-    newValue = calc('/', value, 10e6) + ' K';
+  if (value >= 1000000000) {
+    newValue = calc('/', value, 1000000000) + ' B';
+  } else if (value >= 1000000) {
+    newValue = calc('/', value, 1000000) + ' M';
+  } else if (value >= 1000) {
+    newValue = calc('/', value, 1000) + ' K';
   }
 
   return newValue.replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
