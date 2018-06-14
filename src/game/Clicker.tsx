@@ -22,6 +22,10 @@ const Cookie = styled.button`
     transform: scale(1.05);
     box-shadow: inset -0.7em -0.7em 0 rgba(69, 77, 140, 1), 0 2px 16px rgba(69, 77, 140, 0.8);
   }
+
+  @media (max-width: 36rem) {
+    margin: 0.5em auto 2em;
+  }
 `;
 
 interface IProps {

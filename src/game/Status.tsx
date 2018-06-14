@@ -7,10 +7,6 @@ interface IProps {
   generates: number;
 }
 
-const StatusWrapper = styled.div`
-  width: 40em;
-`;
-
 const StatusAmount = styled.h1`
   margin: 0;
 `;
@@ -26,10 +22,10 @@ class Status extends React.Component<IProps> {
     const { blobbers, generates } = this.props;
 
     return (
-      <StatusWrapper>
+      <React.Fragment>
         <StatusAmount>{formatAmount(blobbers)} blobbers</StatusAmount>
         <StatusGenerates>{formatAmount(generates)} a second</StatusGenerates>
-      </StatusWrapper>
+      </React.Fragment>
     );
   }
 }

@@ -13,14 +13,25 @@ export interface IState {
 
 const Wrapper = styled.div`
   display: flex;
+
+  @media (max-width: 36rem) {
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+  }
 `;
 
 const SideBar = styled.div`
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
-  max-width: 18rem;
+  width: 18rem;
   margin-right: 1em;
+
+  @media (max-width: 36rem) {
+    margin-right: 0;
+    justify-content: flex-start;
+    text-align: center;
+  }
 `;
 
 class App extends React.Component<{}, IState> {

@@ -5,7 +5,7 @@ import { formatAmount, IItemStatus, Buyables, nameToUppercase, Buyable } from '.
 const BuyItems = styled.div`
   display: flex;
   flex-flow: column nowrap;
-  flex: 2;
+  flex: 1;
 `;
 
 const BuyInfo = styled.div`
@@ -14,14 +14,15 @@ const BuyInfo = styled.div`
   position: absolute;
   left: 100%;
   top: -0.75em;
-  width: auto;
+  max-width: 15em;
   color: #fff;
   display: none;
   padding: 0.5em;
   margin-left: 1.25em;
+  z-index: 5;
 
-  &::before {
-    content: "";
+  &::after {
+    content: '';
     position: absolute;
     left: -0.75em;
     top: 0.75em;
@@ -36,7 +37,19 @@ const BuyInfo = styled.div`
   p {
     margin: 0;
     white-space: nowrap;
-    float: left;
+  }
+
+  @media (max-width: 36rem) {
+    top: 3.5em;
+    left: 0;
+
+    &::after {
+      top: -1.75em;
+      left: 1.5em;
+      border-right: 1em solid transparent;
+      border-left: 1em solid transparent;
+      border-bottom: 1em solid #282828;
+    }
   }
 `;
 
@@ -50,17 +63,18 @@ const BuyItem = styled.button`
   border: 0;
   outline: none;
   border-radius: 3px;
-  font-family: "Work Sans", sans-serif;
-  background: #fff;
-  color: #181818;
+  font-family: 'Work Sans', sans-serif;
+  background: rgba(255, 255, 255, 0.8);
+  color: rgba(24, 24, 24, 0.8);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   text-align: left;
-  transition: box-shadow 0.1s ease, opacity 0.1s ease, transform 0.1s ease;
-  opacity: 0.8;
+  transition: box-shadow 0.1s ease, background 0.1s ease, color 0.1s ease, transform 0.1s ease;
+  z-index: 5;
 
   &:not(:disabled):hover {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    opacity: 1;
+    color: #181818;
+    background: #fff;
     transform: scale(1.05);
   }
 
@@ -69,8 +83,7 @@ const BuyItem = styled.button`
   }
 
   &:disabled {
-    opacity: 0.5;
-    color: #fff;
+    color: rgba(255, 255, 255, 0.5);
     background: initial;
     box-shadow: none;
   }
@@ -120,7 +133,9 @@ class BuyMenu extends React.Component<IProps> {
               <span>฿ {formatAmount(cost)}</span>
               <BuyInfo>
                 <p>Generates ฿{formatAmount(generates)}/s</p>
-                <p>You own {amount} {amount === 1 ? name : namePlural}</p>
+                <p>
+                  You own {amount} {amount === 1 ? name : namePlural}
+                </p>
               </BuyInfo>
             </BuyItem>
           );

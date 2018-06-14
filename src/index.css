@@ -9,8 +9,17 @@ body {
   width: 100%;
   margin: 0;
   user-select: none;
+  overflow-x: hidden;
 }
 
 button::-moz-focus-inner {
   border: 0;
+}
+
+
+@media (max-width: 36rem) {
+  body {
+    min-height: 100vh;
+    height: auto;
+  }
 }
