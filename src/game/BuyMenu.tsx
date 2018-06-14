@@ -1,7 +1,6 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { formatAmount } from './utils';
-import { IItem } from './App';
+import { formatAmount, IItemStatus, Buyables, nameToUppercase, Buyable } from './utils';
 
 const BuyItems = styled.div`
   display: flex;
@@ -22,7 +21,7 @@ const BuyInfo = styled.div`
   margin-left: 1.25em;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     left: -0.75em;
     top: 0.75em;
@@ -51,7 +50,7 @@ const BuyItem = styled.button`
   border: 0;
   outline: none;
   border-radius: 3px;
-  font-family: 'Work Sans', sans-serif;
+  font-family: "Work Sans", sans-serif;
   background: #fff;
   color: #181818;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -85,48 +84,43 @@ const BuyTitle = styled.h3`
 `;
 
 interface IProps {
-  onUpdate: (worth: number, cost: number) => void;
-  amount: number;
-  items: IItem[];
+  bought: { [x: string]: IItemStatus };
+  blobbers: number;
+  onBuy: (buy: { [x: string]: IItemStatus }, cost: number) => void;
 }
 
 class BuyMenu extends React.Component<IProps> {
-  calculateCost({ cost, amount }: IItem) {
-    return Math.round(cost * 1.2 ** amount);
-  }
-
-  buy = (item: IItem, cost: number) => (event: React.MouseEvent) => {
+  buy = (bought: { [x: string]: IItemStatus }, buyable: Buyable) => (event: React.MouseEvent) => {
     event.preventDefault();
 
-    const { onUpdate } = this.props;
-    item.amount++;
-    onUpdate(item.generates, cost);
+    const { onBuy } = this.props;
+    const { amount } = bought[buyable.name];
+
+    onBuy(
+      {
+        ...bought,
+        [buyable.name]: { amount: amount + 1 }
+      },
+      buyable.calculateCost(amount)
+    );
   };
 
   render() {
-    const { amount, items } = this.props;
-
+    const { blobbers, bought } = this.props;
     return (
       <BuyItems>
-        {items.map(item => {
-          const { name, nameMultiple, generates, amount: itemAmount } = item;
-          const cost = this.calculateCost(item);
+        {Buyables.map(buyable => {
+          const { generates, name, namePlural } = buyable;
+          const { amount } = bought[name];
+          const cost = buyable.calculateCost(amount);
 
           return (
-            <BuyItem
-              key={name}
-              disabled={cost > amount}
-              onClick={this.buy(item, cost)}>
-              <BuyTitle>{name}</BuyTitle>
+            <BuyItem key={name} disabled={cost > blobbers} onClick={this.buy(bought, buyable)}>
+              <BuyTitle>{nameToUppercase(name)}</BuyTitle>
               <span>฿ {formatAmount(cost)}</span>
               <BuyInfo>
                 <p>Generates ฿{formatAmount(generates)}/s</p>
-                <p>
-                  You own {itemAmount}{' '}
-                  {itemAmount === 1
-                    ? name.charAt(0).toLowerCase() + name.substring(1, name.length)
-                    : nameMultiple}
-                </p>
+                <p>You own {amount} {amount === 1 ? name : namePlural}</p>
               </BuyInfo>
             </BuyItem>
           );

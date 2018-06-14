@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { formatAmount } from './utils';
 
 interface IProps {
-  amount: number;
+  blobbers: number;
   generates: number;
 }
 
@@ -23,11 +23,11 @@ const StatusGenerates = styled.h2`
 
 class Status extends React.Component<IProps> {
   render() {
-    const { amount, generates } = this.props;
+    const { blobbers, generates } = this.props;
 
     return (
       <StatusWrapper>
-        <StatusAmount>{formatAmount(amount)} blobbers</StatusAmount>
+        <StatusAmount>{formatAmount(blobbers)} blobbers</StatusAmount>
         <StatusGenerates>{formatAmount(generates)} a second</StatusGenerates>
       </StatusWrapper>
     );
