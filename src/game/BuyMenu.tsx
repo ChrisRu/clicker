@@ -8,7 +8,7 @@ const BuyItems = styled.div`
   flex: 1;
 `;
 
-const BuyInfo = styled.div`
+const BuyHoverInfo = styled.div`
   background: #282828;
   border-radius: 3px;
   position: absolute;
@@ -78,7 +78,7 @@ const BuyItem = styled.button`
     transform: scale(1.05);
   }
 
-  &:hover ${BuyInfo} {
+  &:hover ${BuyHoverInfo} {
     display: block;
   }
 
@@ -131,12 +131,12 @@ class BuyMenu extends React.Component<IProps> {
             <BuyItem key={name} disabled={cost > blobbers} onClick={this.buy(bought, buyable)}>
               <BuyTitle>{nameToUppercase(name)}</BuyTitle>
               <span>฿ {formatAmount(cost)}</span>
-              <BuyInfo>
+              <BuyHoverInfo>
                 <p>Generates ฿{formatAmount(generates)}/s</p>
                 <p>
                   You own {amount} {amount === 1 ? name : namePlural}
                 </p>
-              </BuyInfo>
+              </BuyHoverInfo>
             </BuyItem>
           );
         })}

@@ -2,11 +2,6 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { formatAmount } from './utils';
 
-interface IProps {
-  blobbers: number;
-  generates: number;
-}
-
 const StatusAmount = styled.h1`
   margin: 0;
 `;
@@ -16,6 +11,11 @@ const StatusGenerates = styled.h2`
   font-size: 1.1em;
   opacity: 0.8;
 `;
+
+interface IProps {
+  blobbers: number;
+  generates: number;
+}
 
 class Status extends React.Component<IProps> {
   render() {

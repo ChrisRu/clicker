@@ -5,12 +5,6 @@ import BuyMenu from './BuyMenu';
 import { calc, IItemStatus, Buyables } from './utils';
 import styled from 'styled-components';
 
-export interface IState {
-  bought: { [x: string]: IItemStatus };
-  blobbers: number;
-  generates: number;
-}
-
 const Wrapper = styled.div`
   display: flex;
 
@@ -20,7 +14,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const SideBar = styled.div`
+const LeftSide = styled.div`
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
@@ -34,10 +28,16 @@ const SideBar = styled.div`
   }
 `;
 
+export interface IState {
+  bought: { [x: string]: IItemStatus };
+  blobbers: number;
+  generates: number;
+}
+
 class App extends React.Component<{}, IState> {
   private interval: NodeJS.Timer;
 
-  state = App.loadInitialState() || App.createInitialState();
+  state = App.loadInitialState() || App.generateInitialState();
 
   componentDidMount() {
     this.interval = setInterval(() => {
@@ -93,7 +93,7 @@ class App extends React.Component<{}, IState> {
     return null;
   }
 
-  static createInitialState() {
+  static generateInitialState() {
     return {
       bought: Buyables.reduce(
         (bought, buyable) => ({
@@ -112,10 +112,10 @@ class App extends React.Component<{}, IState> {
 
     return (
       <Wrapper>
-        <SideBar>
+        <LeftSide>
           <Status blobbers={blobbers} generates={generates} />
           <Clicker onClick={this.click} />
-        </SideBar>
+        </LeftSide>
         <BuyMenu bought={bought} blobbers={blobbers} onBuy={this.buy} />
       </Wrapper>
     );
