@@ -64,7 +64,7 @@ class App extends React.Component<{}, IState> {
     this.setState(({ bought }) => ({
       generates: Buyables.reduce(
         (generates, buyable) =>
-          bought[buyable.name].amount * buyable.generates + generates,
+          calc('+', calc('*', bought[buyable.name].amount, buyable.generates), generates),
         0
       )
     }));

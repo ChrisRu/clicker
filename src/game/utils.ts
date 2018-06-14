@@ -33,26 +33,30 @@ export class Buyable {
   readonly namePlural: string;
   readonly generates: number;
   readonly initialCost: number;
+  readonly increaseRate: number;
 
   constructor({
     name,
     namePlural,
     generates,
-    initialCost
+    initialCost,
+    increaseRate = 1.15
   }: {
     name: string;
     namePlural: string;
     generates: number;
     initialCost: number;
+    increaseRate?: number;
   }) {
     this.name = name;
     this.namePlural = namePlural;
     this.generates = generates;
     this.initialCost = initialCost;
+    this.increaseRate = increaseRate;
   }
 
   calculateCost = (count: number): number => {
-    return Math.round(this.initialCost * 1.2 ** count);
+    return Math.round(this.initialCost * this.increaseRate ** count);
   };
 }
 
@@ -66,44 +70,56 @@ export const Buyables: ReadonlyArray<Buyable> = [
   new Buyable({
     name: 'grandma',
     namePlural: 'grannies',
-    generates: 1,
-    initialCost: 50
+    generates: 0.5,
+    initialCost: 100
   }),
   new Buyable({
     name: 'farm',
     namePlural: 'farms',
-    generates: 2,
+    generates: 4,
     initialCost: 500
   }),
   new Buyable({
     name: 'factory',
     namePlural: 'factories',
-    generates: 5,
-    initialCost: 1000
+    generates: 10,
+    initialCost: 3000
   }),
   new Buyable({
     name: 'mine',
     namePlural: 'mines',
-    generates: 10,
+    generates: 40,
     initialCost: 10000
+  }),
+  new Buyable({
+    name: 'laboratory',
+    namePlural: 'laboratories',
+    generates: 100,
+    initialCost: 40000
   }),
   new Buyable({
     name: 'plant',
     namePlural: 'plants',
-    generates: 50,
-    initialCost: 100000
+    generates: 400,
+    initialCost: 200000
   }),
   new Buyable({
     name: 'planet',
     namePlural: 'planets',
-    generates: 100,
-    initialCost: 1000000
+    generates: 5000,
+    initialCost: 1500000
   }),
   new Buyable({
     name: 'aliens',
     namePlural: 'alien species',
-    generates: 1000,
+    generates: 100000,
     initialCost: 100000000
+  }),
+  new Buyable({
+    name: 'magic',
+    namePlural: 'magics',
+    generates: 1000000,
+    initialCost: 4000000000
   })
 ];
 

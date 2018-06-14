@@ -80,7 +80,7 @@ const BuyTitle = styled.h3`
   margin: 0;
   font-size: 1rem;
   margin-right: 1em;
-  width: 4.5em;
+  width: 5.25em;
 `;
 
 interface IProps {
